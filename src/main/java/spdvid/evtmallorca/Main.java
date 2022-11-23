@@ -88,6 +88,8 @@ public class Main extends javax.swing.JFrame {
         getContentPane().add(pnlHeader);
         pnlHeader.setBounds(10, 10, 780, 100);
 
+        pnlMain.setMinimumSize(new java.awt.Dimension(780, 700));
+        pnlMain.setPreferredSize(new java.awt.Dimension(780, 700));
         pnlMain.setLayout(null);
 
         lblLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
@@ -95,7 +97,7 @@ public class Main extends javax.swing.JFrame {
         lblLogo.setBounds(180, 30, 410, 420);
 
         getContentPane().add(pnlMain);
-        pnlMain.setBounds(10, 100, 780, 490);
+        pnlMain.setBounds(10, 100, 780, 670);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

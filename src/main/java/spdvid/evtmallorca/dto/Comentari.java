@@ -8,7 +8,7 @@ public class Comentari {
     private int id;
     private String text;
     private String dataihora;
-    private String usuari;
+    private int idUsuari;
     private int idAllotjament;
     private int idComentariPare;
     
@@ -37,14 +37,6 @@ public class Comentari {
         this.dataihora = dataihora;
     }
 
-    public String getUsuari() {
-        return usuari;
-    }
-
-    public void setUsuari(String usuari) {
-        this.usuari = usuari;
-    }
-
     public int getIdAllotjament() {
         return idAllotjament;
     }
@@ -59,5 +51,13 @@ public class Comentari {
 
     public void setIdComentariPare(int idComentariPare) {
         this.idComentariPare = idComentariPare;
+    }
+
+    public int getIdUsuari() {
+        return idUsuari;
+    }
+
+    public void setIdUsuari(int idUsuari) {
+        this.idUsuari = idUsuari;
     }
 }

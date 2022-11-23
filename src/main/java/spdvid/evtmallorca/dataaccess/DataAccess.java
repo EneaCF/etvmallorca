@@ -23,11 +23,11 @@ public class DataAccess {
 
     private Connection getConnection() {
         Connection connection = null;
-        //Properties properties = new Properties();
+        Properties properties = new Properties();
         try {
-            //properties.load(DataAccess.class.getClassLoader().getResourceAsStream("properties/application.properties"));
-            //connection = DriverManager.getConnection(properties.getProperty("url"), properties);
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/etvmallorca", "root", "Pwd1234.");
+            properties.load(DataAccess.class.getClassLoader().getResourceAsStream("properties/application.properties"));
+            connection = DriverManager.getConnection(properties.getProperty("url"), properties);
+//            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/etvmallorca", "root", "Pwd1234.");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -99,7 +99,27 @@ public class DataAccess {
                 user.setPassword(resultSet.getString("password"));
                 user.setAdmin(resultSet.getBoolean("isAdmin"));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 
+    public Usuari getUser(int id) {
+        Usuari user = null;
+        String sql = "SELECT * FROM usuari WHERE id = ?";
+        try ( Connection connection = getConnection();  PreparedStatement selectStatement = connection.prepareStatement(sql);) {
+            selectStatement.setInt(1, id);
+            ResultSet resultSet = selectStatement.executeQuery();
+            user = new Usuari();
+            while (resultSet.next()) {
+                user.setId(resultSet.getInt("id"));
+                user.setNom(resultSet.getString("nom"));
+                user.setLlinatges(resultSet.getString("llinatges"));
+                user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
+                user.setAdmin(resultSet.getBoolean("isAdmin"));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -264,22 +284,21 @@ public class DataAccess {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         for (int i = 0; i < serveis.length; i++) {
-            if(serveis[i] == 1) {
-                insertServei(i+1, idAllotjament);
+            if (serveis[i] == 1) {
+                insertServei(i + 1, idAllotjament);
             }
         }
-        
+
         return result;
     }
 
     public ArrayList<Comentari> getComentaris(int idAllotjament) {
         ArrayList<Comentari> comentaris = new ArrayList<>();
         String sql = "SELECT comentari.id, comentari.text, comentari.dataihora,"
-                + " usuari.nom, usuari.llinatges, comentari.id_allotjament, comentari.id_comentari_pare FROM"
-                + " comentari JOIN usuari ON comentari.id_usuari=usuari.id"
-                + " WHERE id_allotjament = ?";
+                + " comentari.id_usuari, comentari.id_allotjament, comentari.id_comentari_pare"
+                + " FROM comentari WHERE id_allotjament = ?";
         try ( Connection connection = getConnection();  PreparedStatement selectStatement = connection.prepareStatement(sql);) {
             selectStatement.setInt(1, idAllotjament);
             ResultSet resultSet = selectStatement.executeQuery();
@@ -287,15 +306,18 @@ public class DataAccess {
                 Comentari comentari = new Comentari();
                 comentari.setId(resultSet.getInt("id"));
                 comentari.setText(resultSet.getString("text"));
-                //DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-                //LocalDateTime dataihora = LocalDateTime.parse(resultSet.getString("dataihora"), dtf);
                 comentari.setDataihora(resultSet.getString("dataihora"));
-
-                comentari.setUsuari(resultSet.getString("nom") + " " + resultSet.getString("llinatges"));
-                //String comentari = usuari + " said:\n " + text + "\nOn " + dataihora.toString();
+                comentari.setIdUsuari(resultSet.getInt("id_usuari"));
                 comentari.setIdAllotjament(resultSet.getInt("id_allotjament"));
                 comentari.setIdComentariPare(resultSet.getInt("id_comentari_pare"));
                 comentaris.add(comentari);
+                /*
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                LocalDateTime dataihora = LocalDateTime.parse(resultSet.getString("dataihora"), dtf);
+                System.out.println(getUser(resultSet.getInt("id_usuari")).getNom()
+                        + " said:\n " + resultSet.getString("text") + "\nOn "
+                        + dataihora.toString());
+                 */
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -306,7 +328,7 @@ public class DataAccess {
 
     public float getValoracioAllotjamentAvg(int idAllotjament) {
         float valoracioAvg = 0.0f;
-        String sql = "SELECT AVG(valoracio) AS avg_valoracio FROM valoracio WHERE id_allotjament = ?";
+        String sql = "SELECT AVG(num_estrelles) AS avg_valoracio FROM valoracio WHERE id_allotjament = ?";
         try ( Connection connection = getConnection();  PreparedStatement selectStatement = connection.prepareStatement(sql);) {
             selectStatement.setInt(1, idAllotjament);
             ResultSet resultSet = selectStatement.executeQuery();

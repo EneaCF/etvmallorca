@@ -1,10 +1,13 @@
 package spdvid.evtmallorca.panels;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import spdvid.evtmallorca.Main;
 import spdvid.evtmallorca.dataaccess.DataAccess;
 import spdvid.evtmallorca.dto.Allotjament;
+import spdvid.evtmallorca.dto.Comentari;
 import spdvid.evtmallorca.dto.Municipi;
 import spdvid.evtmallorca.dto.Servei;
 
@@ -25,7 +28,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         initComponents();
         this.allotjament = allotjament;
         this.mainJFrame = mainJPanel;
-        setSize(780, 490);
+        setSize(780, 700);
 
         inicialitzaFields();
     }
@@ -38,6 +41,8 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         spnNumPersones.setValue(allotjament.getNum_persones());
         txtPreuNit.setText(Float.toString(allotjament.getPreu_per_nit()));
         initServeis();
+        initComentaris();
+        txtValoracio.setText(Float.toString(da.getValoracioAllotjamentAvg(allotjament.getId())));
     }
 
     private void initCmbMunicipis() {
@@ -76,6 +81,17 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         }
     }
 
+    private void initComentaris() {
+        var comentaris = da.getComentaris(allotjament.getId());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        for (Comentari comentari : comentaris) {
+            LocalDateTime dataihora = LocalDateTime.parse(comentari.getDataihora(), dtf);
+            txaComentaris.append(comentari.getIdUsuari()
+                    + " said:\n " + comentari.getText() + "\nOn "
+                    + dataihora.toString() + "\n\n");
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -102,8 +118,12 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         chkAireAcondicionat = new javax.swing.JCheckBox();
         chkAparcament = new javax.swing.JCheckBox();
         chkWifi = new javax.swing.JCheckBox();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txaComentaris = new javax.swing.JTextArea();
+        txtValoracio = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(780, 490));
+        setPreferredSize(new java.awt.Dimension(780, 700));
         setLayout(null);
 
         txtNom.setText("nom");
@@ -219,6 +239,22 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
 
         add(pnlServeis);
         pnlServeis.setBounds(310, 150, 300, 110);
+
+        txaComentaris.setColumns(20);
+        txaComentaris.setRows(5);
+        jScrollPane2.setViewportView(txaComentaris);
+
+        add(jScrollPane2);
+        jScrollPane2.setBounds(60, 470, 630, 160);
+
+        txtValoracio.setEditable(false);
+        txtValoracio.setText("5");
+        add(txtValoracio);
+        txtValoracio.setBounds(50, 270, 30, 22);
+
+        jLabel1.setText("stars");
+        add(jLabel1);
+        jLabel1.setBounds(90, 270, 60, 20);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -279,13 +315,18 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
     private javax.swing.JCheckBox chkPiscina;
     private javax.swing.JCheckBox chkWifi;
     private javax.swing.JComboBox<String> cmbMunicipi;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel pnlServeis;
     private javax.swing.JSpinner spnNumPersones;
+    private javax.swing.JTextArea txaComentaris;
     private javax.swing.JTextArea txaDescripcio;
     private javax.swing.JTextField txtAdresa;
     private javax.swing.JTextField txtNom;
     private javax.swing.JTextField txtPreuNit;
+    private javax.swing.JTextField txtValoracio;
     // End of variables declaration//GEN-END:variables
+
 }
