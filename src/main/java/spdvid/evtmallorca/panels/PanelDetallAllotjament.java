@@ -122,6 +122,10 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         txaComentaris = new javax.swing.JTextArea();
         txtValoracio = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        btnPrevImage = new javax.swing.JButton();
+        btnNextImage = new javax.swing.JButton();
+        chkAutoMan = new javax.swing.JCheckBox();
+        lblImageFileName = new javax.swing.JLabel();
 
         setPreferredSize(new java.awt.Dimension(780, 700));
         setLayout(null);
@@ -158,15 +162,15 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 630, Short.MAX_VALUE)
+            .addGap(0, 310, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 117, Short.MAX_VALUE)
+            .addGap(0, 247, Short.MAX_VALUE)
         );
 
         add(jPanel1);
-        jPanel1.setBounds(50, 300, 640, 140);
+        jPanel1.setBounds(50, 300, 320, 270);
 
         btnBack.setText("< Back");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
@@ -242,19 +246,37 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
 
         txaComentaris.setColumns(20);
         txaComentaris.setRows(5);
+        txaComentaris.setText("Comentaris");
         jScrollPane2.setViewportView(txaComentaris);
 
         add(jScrollPane2);
-        jScrollPane2.setBounds(60, 470, 630, 160);
+        jScrollPane2.setBounds(420, 300, 300, 320);
 
         txtValoracio.setEditable(false);
         txtValoracio.setText("5");
         add(txtValoracio);
-        txtValoracio.setBounds(50, 270, 30, 22);
+        txtValoracio.setBounds(50, 250, 30, 22);
 
         jLabel1.setText("stars");
         add(jLabel1);
-        jLabel1.setBounds(90, 270, 60, 20);
+        jLabel1.setBounds(90, 250, 60, 20);
+
+        btnPrevImage.setText("<");
+        add(btnPrevImage);
+        btnPrevImage.setBounds(280, 590, 40, 23);
+
+        btnNextImage.setText(">");
+        add(btnNextImage);
+        btnNextImage.setBounds(330, 590, 40, 23);
+
+        chkAutoMan.setText("Auto");
+        add(chkAutoMan);
+        chkAutoMan.setBounds(70, 590, 85, 20);
+
+        lblImageFileName.setText("Nom del fitxer de imatge i tamany en KB");
+        lblImageFileName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        add(lblImageFileName);
+        lblImageFileName.setBounds(80, 630, 260, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -307,10 +329,13 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnNextImage;
+    private javax.swing.JButton btnPrevImage;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JCheckBox chkAireAcondicionat;
     private javax.swing.JCheckBox chkAparcament;
     private javax.swing.JCheckBox chkAscensor;
+    private javax.swing.JCheckBox chkAutoMan;
     private javax.swing.JCheckBox chkMascotes;
     private javax.swing.JCheckBox chkPiscina;
     private javax.swing.JCheckBox chkWifi;
@@ -319,6 +344,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblImageFileName;
     private javax.swing.JPanel pnlServeis;
     private javax.swing.JSpinner spnNumPersones;
     private javax.swing.JTextArea txaComentaris;
