@@ -1,9 +1,13 @@
 package spdvid.evtmallorca.panels;
 
+import java.awt.Image;
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JDialog;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import spdvid.evtmallorca.Main;
 import spdvid.evtmallorca.dataaccess.DataAccess;
@@ -110,7 +114,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         spnNumPersones = new javax.swing.JSpinner();
         txtPreuNit = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        lblimg = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         pnlServeis = new javax.swing.JPanel();
@@ -128,6 +132,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         btnNextImage = new javax.swing.JButton();
         chkAutoMan = new javax.swing.JCheckBox();
         lblImageFileName = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(780, 700));
         setLayout(null);
@@ -160,28 +165,21 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Imatges"));
 
-        jButton1.setText("Info Imagen");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(jButton1)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addGap(62, 62, 62)
+                .addComponent(lblimg, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(149, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(113, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(111, 111, 111))
+                .addContainerGap(55, Short.MAX_VALUE)
+                .addComponent(lblimg, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(108, 108, 108))
         );
 
         add(jPanel1);
@@ -292,6 +290,15 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         lblImageFileName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         add(lblImageFileName);
         lblImageFileName.setBounds(80, 630, 260, 30);
+
+        jButton1.setText("Info Imagen");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1);
+        jButton1.setBounds(190, 280, 94, 23);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -343,6 +350,8 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        JOptionPane.showMessageDialog(this, da.getImagenes().get(0).getId());
+       ImageIcon imageIcon = new ImageIcon(da.getImagenes().get(0).getImagen());
+       lblimg.setIcon(imageIcon);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -365,6 +374,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblImageFileName;
+    private javax.swing.JLabel lblimg;
     private javax.swing.JPanel pnlServeis;
     private javax.swing.JSpinner spnNumPersones;
     private javax.swing.JTextArea txaComentaris;
