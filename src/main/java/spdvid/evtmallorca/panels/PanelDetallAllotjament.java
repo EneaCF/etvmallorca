@@ -3,6 +3,7 @@ package spdvid.evtmallorca.panels;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import spdvid.evtmallorca.Main;
 import spdvid.evtmallorca.dataaccess.DataAccess;
@@ -109,6 +110,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         spnNumPersones = new javax.swing.JSpinner();
         txtPreuNit = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         pnlServeis = new javax.swing.JPanel();
@@ -158,15 +160,28 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Imatges"));
 
+        jButton1.setText("Info Imagen");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(112, 112, 112)
+                .addComponent(jButton1)
+                .addContainerGap(104, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 247, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(113, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(111, 111, 111))
         );
 
         add(jPanel1);
@@ -326,6 +341,10 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       JOptionPane.showMessageDialog(this, da.getImagenes().get(0).getId());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
@@ -340,6 +359,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
     private javax.swing.JCheckBox chkPiscina;
     private javax.swing.JCheckBox chkWifi;
     private javax.swing.JComboBox<String> cmbMunicipi;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

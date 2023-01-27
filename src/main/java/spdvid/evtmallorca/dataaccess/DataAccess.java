@@ -1,5 +1,10 @@
 package spdvid.evtmallorca.dataaccess;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,11 +14,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import spdvid.evtmallorca.dto.Allotjament;
 import spdvid.evtmallorca.dto.Comentari;
 import spdvid.evtmallorca.dto.Municipi;
 import spdvid.evtmallorca.dto.Servei;
 import spdvid.garciajodar_tarea1.dto.Usuari;
+import spdvid.evtmallorca.dto.Imagen;
 
 /**
  *
@@ -32,6 +41,34 @@ public class DataAccess {
             e.printStackTrace();
         }
         return connection;
+    }
+    
+    public ArrayList<Imagen> getImagenes() {
+	ArrayList <Imagen> lista = new ArrayList();
+        
+        String sql = "select * from imatge where id = '1'";
+        try ( Connection connection = getConnection();  PreparedStatement selectStatement = connection.prepareStatement(sql);) {
+            ResultSet resultSet = selectStatement.executeQuery();
+            while (resultSet.next()) {
+                Imagen imagen = new Imagen();
+                imagen.setId(resultSet.getInt("id"));
+                Blob blob = resultSet.getBlob("imatge");
+                byte[] data = blob.getBytes(1,(int)blob.length());
+                BufferedImage img = null;
+                try{
+                    img = ImageIO.read(new ByteArrayInputStream(data));
+                }catch(IOException e){
+              
+                }
+                imagen.setImagen(img);
+                imagen.setNomFitcherImatge(resultSet.getString("nom_fitxer_imatge"));
+                lista.add(imagen);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DataAccess.class.getName()).log(Level.SEVERE, null, ex);
+        }
+	return lista;
     }
 
     public ArrayList<Municipi> getMunicipis() {
