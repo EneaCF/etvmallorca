@@ -287,14 +287,30 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         jLabel1.setBounds(90, 250, 60, 20);
 
         btnPrevImage.setText("<");
+        btnPrevImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrevImageActionPerformed(evt);
+            }
+        });
         add(btnPrevImage);
         btnPrevImage.setBounds(280, 590, 40, 23);
 
         btnNextImage.setText(">");
+        btnNextImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNextImageActionPerformed(evt);
+            }
+        });
         add(btnNextImage);
         btnNextImage.setBounds(330, 590, 40, 23);
 
+        chkAutoMan.setSelected(true);
         chkAutoMan.setText("Auto");
+        chkAutoMan.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                chkAutoManStateChanged(evt);
+            }
+        });
         add(chkAutoMan);
         chkAutoMan.setBounds(70, 590, 85, 20);
 
@@ -370,7 +386,26 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
        }
         
        jpImagen.cargarListImages(listImagenes);
+       jpImagen.start();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnNextImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextImageActionPerformed
+        jpImagen.imagenSiguiente();
+    }//GEN-LAST:event_btnNextImageActionPerformed
+
+    private void btnPrevImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrevImageActionPerformed
+        jpImagen.imagenAnterior();
+    }//GEN-LAST:event_btnPrevImageActionPerformed
+
+    private void chkAutoManStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chkAutoManStateChanged
+         if (chkAutoMan.isSelected()) {
+            jpImagen.setModoAuto(true);
+            jpImagen.restart();
+        } else {
+            jpImagen.setModoAuto(false);
+            jpImagen.restart();
+        }
+    }//GEN-LAST:event_chkAutoManStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
