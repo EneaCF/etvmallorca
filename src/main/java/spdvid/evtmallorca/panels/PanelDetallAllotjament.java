@@ -114,7 +114,6 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         spnNumPersones = new javax.swing.JSpinner();
         txtPreuNit = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
-        lblimg = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         pnlServeis = new javax.swing.JPanel();
@@ -169,17 +168,11 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(62, 62, 62)
-                .addComponent(lblimg, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+            .addGap(0, 310, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
-                .addComponent(lblimg, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(108, 108, 108))
+            .addGap(0, 247, Short.MAX_VALUE)
         );
 
         add(jPanel1);
@@ -351,7 +344,6 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        JOptionPane.showMessageDialog(this, da.getImagenes().get(0).getId());
        ImageIcon imageIcon = new ImageIcon(da.getImagenes().get(0).getImagen());
-       lblimg.setIcon(imageIcon);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -374,7 +366,6 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblImageFileName;
-    private javax.swing.JLabel lblimg;
     private javax.swing.JPanel pnlServeis;
     private javax.swing.JSpinner spnNumPersones;
     private javax.swing.JTextArea txaComentaris;
