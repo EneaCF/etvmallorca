@@ -49,9 +49,19 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         txtPreuNit.setText(Float.toString(allotjament.getPreu_per_nit()));
         initServeis();
         initComentaris();
+        initJpImagen(allotjament.getId());
         txtValoracio.setText(Float.toString(da.getValoracioAllotjamentAvg(allotjament.getId())));
     }
-
+    private void initJpImagen(Integer id){
+       ArrayList<Imagen> obj = da.getImagenes(id);
+       ArrayList<Image> listImagenes = new ArrayList<>();
+       for(Imagen o : obj){
+           listImagenes.add(o.getImagen());
+       }
+       jpImagen.cargarListImages(listImagenes);
+       jpImagen.start();
+    }
+    
     private void initCmbMunicipis() {
         var municipis = da.getMunicipis();
         DefaultComboBoxModel<String> cbm = new DefaultComboBoxModel<>();
@@ -134,7 +144,6 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         btnNextImage = new javax.swing.JButton();
         chkAutoMan = new javax.swing.JCheckBox();
         lblImageFileName = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(780, 700));
         setLayout(null);
@@ -318,15 +327,6 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         lblImageFileName.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         add(lblImageFileName);
         lblImageFileName.setBounds(80, 630, 260, 30);
-
-        jButton1.setText("Info Imagen");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        add(jButton1);
-        jButton1.setBounds(190, 280, 94, 23);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
@@ -376,19 +376,6 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       JOptionPane.showMessageDialog(this, da.getImagenes().get(0).getId());
-       //ImageIcon imageIcon = new ImageIcon(da.getImagenes().get(0).getImagen());
-       ArrayList<Imagen> obj = da.getImagenes();
-       ArrayList<Image> listImagenes = new ArrayList<>();
-       for(Imagen o : obj){
-           listImagenes.add(o.getImagen());
-       }
-        
-       jpImagen.cargarListImages(listImagenes);
-       jpImagen.start();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void btnNextImageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextImageActionPerformed
         jpImagen.imagenSiguiente();
     }//GEN-LAST:event_btnNextImageActionPerformed
@@ -421,7 +408,6 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
     private javax.swing.JCheckBox chkPiscina;
     private javax.swing.JCheckBox chkWifi;
     private javax.swing.JComboBox<String> cmbMunicipi;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
