@@ -1,6 +1,9 @@
 package spdvid.evtmallorca.panels;
 
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -27,6 +30,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
     private Allotjament allotjament = null;
     private DataAccess da = new DataAccess();
     private Main mainJFrame = null;
+    private ArrayList<Image> listImagenes = new ArrayList<>();
 
     /**
      * Creates new form PanelDetallAllotjament
@@ -37,6 +41,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         this.mainJFrame = mainJPanel;
         setSize(780, 700);
 
+        
         inicialitzaFields();
     }
 
@@ -52,16 +57,31 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         initJpImagen(allotjament.getId());
         txtValoracio.setText(Float.toString(da.getValoracioAllotjamentAvg(allotjament.getId())));
     }
-    private void initJpImagen(Integer id){
-       ArrayList<Imagen> obj = da.getImagenes(id);
-       ArrayList<Image> listImagenes = new ArrayList<>();
-       for(Imagen o : obj){
-           listImagenes.add(o.getImagen());
-       }
-       jpImagen.cargarListImages(listImagenes);
-       jpImagen.start();
+
+    private void initJpImagen(Integer id) {
+        ArrayList<Imagen> obj = da.getImagenes(id);
+        
+        for (Imagen o : obj) {
+            listImagenes.add(o.getImagen());
+        }
+        lblImageFileName.setText(getKB(0) + " KB - " + obj.get(0).getNomFitcherImatge());
+        jpImagen.cargarListImages(listImagenes);
+        jpImagen.start();
+        //Actualizamos el tamaño y el nombre de la imagen
+        jpImagen.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jpImagen.restart();//reiniciamos el Timer
+                lblImageFileName.setText(getKB(jpImagen.getIndex()) + " KB - " + obj.get(jpImagen.getIndex()).getNomFitcherImatge());
+            }
+        });
     }
     
+    private String getKB(int id){
+        int size = listImagenes.get(id).getWidth(this) * listImagenes.get(id).getHeight(this) * 3;
+        return Integer.toString(size / 1024);
+    }
+
     private void initCmbMunicipis() {
         var municipis = da.getMunicipis();
         DefaultComboBoxModel<String> cbm = new DefaultComboBoxModel<>();
@@ -180,7 +200,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         jpImagen.setLayout(jpImagenLayout);
         jpImagenLayout.setHorizontalGroup(
             jpImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 310, Short.MAX_VALUE)
         );
         jpImagenLayout.setVerticalGroup(
             jpImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,10 +211,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jpImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jpImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -385,7 +402,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
     }//GEN-LAST:event_btnPrevImageActionPerformed
 
     private void chkAutoManStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_chkAutoManStateChanged
-         if (chkAutoMan.isSelected()) {
+        if (chkAutoMan.isSelected()) {
             jpImagen.setModoAuto(true);
             jpImagen.restart();
         } else {
