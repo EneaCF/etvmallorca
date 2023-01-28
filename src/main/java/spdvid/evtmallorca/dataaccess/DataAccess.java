@@ -43,11 +43,17 @@ public class DataAccess {
         return connection;
     }
     
-    public ArrayList<Imagen> getImagenes() {
+    public ArrayList<Imagen> getImagenes(int idAlojamiento) {
 	ArrayList <Imagen> lista = new ArrayList();
         
-        String sql = "select * from imatge where id = '1'";
+        //String sql = "select * from imatge where id < '10'";
+        String sql = "SELECT imatge.* " +
+                        "FROM allotjament " +
+                        "JOIN imatge_allotjament ON allotjament.id = imatge_allotjament.id_allotjament " +
+                        "JOIN imatge ON imatge_allotjament.id_imatge = imatge.id " +
+                        "WHERE allotjament.id = ?";
         try ( Connection connection = getConnection();  PreparedStatement selectStatement = connection.prepareStatement(sql);) {
+            selectStatement.setInt(1, idAlojamiento);
             ResultSet resultSet = selectStatement.executeQuery();
             while (resultSet.next()) {
                 Imagen imagen = new Imagen();
