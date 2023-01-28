@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.Icon;
@@ -13,6 +14,7 @@ import spdvid.evtmallorca.Main;
 import spdvid.evtmallorca.dataaccess.DataAccess;
 import spdvid.evtmallorca.dto.Allotjament;
 import spdvid.evtmallorca.dto.Comentari;
+import spdvid.evtmallorca.dto.Imagen;
 import spdvid.evtmallorca.dto.Municipi;
 import spdvid.evtmallorca.dto.Servei;
 
@@ -114,6 +116,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         spnNumPersones = new javax.swing.JSpinner();
         txtPreuNit = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
+        jpImagen = new jpimagen1.JpImagen1();
         btnBack = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         pnlServeis = new javax.swing.JPanel();
@@ -164,15 +167,31 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Imatges"));
 
+        javax.swing.GroupLayout jpImagenLayout = new javax.swing.GroupLayout(jpImagen);
+        jpImagen.setLayout(jpImagenLayout);
+        jpImagenLayout.setHorizontalGroup(
+            jpImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 298, Short.MAX_VALUE)
+        );
+        jpImagenLayout.setVerticalGroup(
+            jpImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 241, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 247, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(jpImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         add(jPanel1);
@@ -343,7 +362,14 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        JOptionPane.showMessageDialog(this, da.getImagenes().get(0).getId());
-       ImageIcon imageIcon = new ImageIcon(da.getImagenes().get(0).getImagen());
+       //ImageIcon imageIcon = new ImageIcon(da.getImagenes().get(0).getImagen());
+       ArrayList<Imagen> obj = da.getImagenes();
+       ArrayList<Image> listImagenes = new ArrayList<>();
+       for(Imagen o : obj){
+           listImagenes.add(o.getImagen());
+       }
+        
+       jpImagen.cargarListImages(listImagenes);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
@@ -365,6 +391,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private jpimagen1.JpImagen1 jpImagen;
     private javax.swing.JLabel lblImageFileName;
     private javax.swing.JPanel pnlServeis;
     private javax.swing.JSpinner spnNumPersones;
