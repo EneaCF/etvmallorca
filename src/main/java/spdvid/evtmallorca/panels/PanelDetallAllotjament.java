@@ -41,7 +41,6 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         this.mainJFrame = mainJPanel;
         setSize(780, 700);
 
-        
         inicialitzaFields();
     }
 
@@ -59,25 +58,29 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
     }
 
     private void initJpImagen(Integer id) {
-        ArrayList<Imagen> obj = da.getImagenes(id);
-        
-        for (Imagen o : obj) {
-            listImagenes.add(o.getImagen());
-        }
-        lblImageFileName.setText(getKB(0) + " KB - " + obj.get(0).getNomFitcherImatge());
-        jpImagen.cargarListImages(listImagenes);
-        jpImagen.start();
-        //Actualizamos el tamaño y el nombre de la imagen
-        jpImagen.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jpImagen.restart();//reiniciamos el Timer
-                lblImageFileName.setText(getKB(jpImagen.getIndex()) + " KB - " + obj.get(jpImagen.getIndex()).getNomFitcherImatge());
+        try {
+            ArrayList<Imagen> obj = da.getImagenes(id);
+            for (Imagen o : obj) {
+                listImagenes.add(o.getImagen());
             }
-        });
+            lblImageFileName.setText(getKB(0) + " KB - " + obj.get(0).getNomFitcherImatge());
+            jpImagen.cargarListImages(listImagenes);
+            jpImagen.start();
+            //Actualizamos el tamaño y el nombre de la imagen
+            jpImagen.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    jpImagen.restart();//reiniciamos el Timer
+                    lblImageFileName.setText(getKB(jpImagen.getIndex()) + " KB - " + obj.get(jpImagen.getIndex()).getNomFitcherImatge());
+                }
+            });
+        } catch (Exception ex) {
+            System.out.println("\nNinguna imagen que mostrar para el id: " + id);
+        }
+
     }
-    
-    private String getKB(int id){
+
+    private String getKB(int id) {
         int size = listImagenes.get(id).getWidth(this) * listImagenes.get(id).getHeight(this) * 3;
         return Integer.toString(size / 1024);
     }
@@ -200,7 +203,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         jpImagen.setLayout(jpImagenLayout);
         jpImagenLayout.setHorizontalGroup(
             jpImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 310, Short.MAX_VALUE)
+            .addGap(0, 298, Short.MAX_VALUE)
         );
         jpImagenLayout.setVerticalGroup(
             jpImagenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -211,7 +214,10 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jpImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jpImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
