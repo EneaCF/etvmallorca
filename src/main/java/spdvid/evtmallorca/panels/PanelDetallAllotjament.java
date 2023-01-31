@@ -39,9 +39,7 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         initComponents();
         this.allotjament = allotjament;
         this.mainJFrame = mainJPanel;
-        setSize(780, 700);
-
-        inicialitzaFields();
+        inicialitzaFields();   
     }
 
     private void inicialitzaFields() {
@@ -168,7 +166,8 @@ public class PanelDetallAllotjament extends javax.swing.JPanel {
         chkAutoMan = new javax.swing.JCheckBox();
         lblImageFileName = new javax.swing.JLabel();
 
-        setPreferredSize(new java.awt.Dimension(780, 700));
+        setMinimumSize(new java.awt.Dimension(780, 900));
+        setPreferredSize(new java.awt.Dimension(780, 900));
         setLayout(null);
 
         txtNom.setText("nom");

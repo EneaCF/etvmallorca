@@ -1,5 +1,9 @@
 package spdvid.evtmallorca;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import spdvid.evtmallorca.dialogs.LoginDialog;
 import spdvid.evtmallorca.dto.Allotjament;
 import spdvid.evtmallorca.panels.PanelDetallAllotjament;
@@ -21,8 +25,9 @@ public class Main extends javax.swing.JFrame {
     /**
      * Creates new form Main
      */
-    public Main() {
+    public Main() {      
         initComponents();
+        setSize(800, 650);
     }
 
     /**
@@ -43,6 +48,7 @@ public class Main extends javax.swing.JFrame {
         lblLogo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(800, 600));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
@@ -146,6 +152,9 @@ public class Main extends javax.swing.JFrame {
     public void showPnlDetallAllotjament(Allotjament allotjament) {
         pnlDetallAllotjament = new PanelDetallAllotjament(allotjament, this);
         pnlMain.removeAll();
+        setSize(800,850);
+        pnlDetallAllotjament.setSize(800, 850);
+        setLocationRelativeTo(null);
         pnlMain.add(pnlDetallAllotjament);
         pnlMain.repaint();
     }
